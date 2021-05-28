@@ -1,0 +1,25 @@
+{
+  "name": "nodebigdb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bigchaindb-driver": "^4.1.2",
+    "bip39": "^3.0.3",
+    "body-parser": "^1.19.0",
+    "bs58": "^4.0.1",
+    "cors": "^2.8.5",
+    "crypto-conditions": "^2.0.3",
+    "express": "^4.17.1",
+    "https": "^1.0.0",
+    "razorpay": "^2.0.6",
+    "react-native-razorpay": "^2.2.5",
+    "stripe": "^8.149.0"
+  }
+}

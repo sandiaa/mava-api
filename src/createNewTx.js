@@ -9,8 +9,9 @@ const createNewTx = async (data) => {
   const receiverId = await getUserId.getUserId(data.receiver);
   const newTransaction = {
     id: data.id,
-    receiverId: receiverId,
-    senderId: senderId,
+    receiverId: receiverId.user.id,
+    receiverName: data.receiverName,
+    senderId: senderId.user.id,
     homeCurrency: data.homeCurrency,
     receiverCurrency: data.receiverCurrency,
     createdAt: new Date(),

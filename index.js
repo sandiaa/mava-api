@@ -41,6 +41,7 @@ app.put("/createNewTx", async function (req, res) {
     amountInHomeCurrency: req.body.amountInHomeCurrency,
     sender: req.body.sender,
     receiver: req.body.receiver,
+    receiverName: req.body.receiverName,
   };
 
   const result = await createNewTx.createNewTx(data);

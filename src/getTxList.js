@@ -20,7 +20,7 @@ const getTxList = async (number) => {
   if (userId) {
     await conn.searchAssets(userId).then(
       (res) => {
-        result = res;
+        result = { status: "success", message: res };
       },
       (err) => {
         result = { status: "error", message: "No Transaction found" };

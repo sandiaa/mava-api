@@ -41,7 +41,7 @@ app.put("/createNewTx", async function (req, res) {
     amountInHomeCurrency: req.body.amountInHomeCurrency,
     sender: req.body.sender,
     receiver: req.body.receiver,
-    receiverName: req.body.receiverName,
+    displayDate: req.body.displayDate,
   };
 
   const result = await createNewTx.createNewTx(data);
@@ -130,7 +130,7 @@ app.get("/getUserId", async function (req, res) {
 });
 
 app.get("/getTxDetails", async function (req, res) {
-  const result = await getTxDetails.getTxDetails(req.query.id);
+  var result = await getTxDetails.getTxDetails(req.query.id);
   res.send(result);
 });
 

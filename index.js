@@ -134,6 +134,17 @@ app.get("/getTxDetails", async function (req, res) {
   res.send(result);
 });
 
+app.get("/getTxStatus", async function (req, res) {
+  var result = await getTxDetails.getTxDetails(req.query.id);
+  if (result.status === "success") {
+    result = {
+      status: "success",
+      message: result.data[result.data.length - 1],
+    };
+  }
+  res.send(result);
+});
+
 app.listen(3000, function () {
   console.log("listening at port 3000");
 });

@@ -10,7 +10,7 @@ const deliverTxAmt = async (data) => {
   const receiverKeys = await createKeys.createKeys("MAVA");
   const metadata = {
     assetId: data.assetId,
-    transferLevel: "DELIVERED",
+    transferLevel: "AMOUNT_DELIVERED",
     senderStatus: "DELIVERED",
     receiverStatus: "DELIVERED",
     finalStatus: "DELIVERED",

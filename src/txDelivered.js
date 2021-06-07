@@ -11,7 +11,7 @@ const txDelivered = async (data) => {
 
   const metadata = {
     assetId: data.assetId,
-    transferLevel: "DELIVERED",
+    transferLevel: "TASK_DELIVERED",
     senderStatus: "TASK_REVIEWED",
     receiverStatus: "TASK_REVIEWED",
     finalStatus: "NOT_SET",

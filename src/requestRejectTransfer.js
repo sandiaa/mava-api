@@ -2,6 +2,7 @@ const driver = require("bigchaindb-driver");
 const getTransaction = require("./getTransaction");
 const createKeys = require("./createKeys");
 const userId = require("./getUserId");
+const refundAmount = require("./refundAmtDeliver");
 
 const requestRejectTransfer = async (data) => {
   const conn = new driver.Connection("https://test.ipdb.io/api/v1/");
@@ -39,6 +40,7 @@ const requestRejectTransfer = async (data) => {
   await conn.postTransactionCommit(signedTX).then(
     (res) => {
       result = { status: "success", data: res };
+      refundAmount.refundAmount({ id: res.id, assetId: res.asset.id });
     },
     (err) => {
       result = { status: "error", message: "Transaction not accepted" };

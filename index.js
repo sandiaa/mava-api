@@ -42,6 +42,7 @@ app.put("/createNewTx", async function (req, res) {
     sender: req.body.sender,
     receiver: req.body.receiver,
     displayDate: req.body.displayDate,
+    PaymentMode: req.body.PaymentMode,
   };
 
   const result = await createNewTx.createNewTx(data);

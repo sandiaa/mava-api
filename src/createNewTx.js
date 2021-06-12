@@ -21,6 +21,7 @@ const createNewTx = async (data) => {
     description: data.description,
     amountInHomeCurrency: data.amountInHomeCurrency,
     displayDate: data.displayDate,
+    paymentMode: data.paymentMode,
   };
   const transactionMetadata = {
     transferLevel: "TX_ASSET_CREATION",

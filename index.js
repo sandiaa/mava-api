@@ -9,6 +9,7 @@ app.use(
 
 var createUser = require("./src/createUser");
 var createNewTx = require("./src/createNewTx");
+var createDeliverNow = require("./src/createDeliverNow");
 var requestAcceptTransfer = require("./src/requestAcceptTransfer");
 var txReviewSubmission = require("./src/txReviewSubmission");
 var txDelivered = require("./src/txDelivered");
@@ -19,6 +20,7 @@ var reviewUnsuccessful = require("./src/reviewUnsuccessful");
 var getTxList = require("./src/getTxList");
 var getUserId = require("./src/getUserId");
 var getTxDetails = require("./src/getTxDetails");
+var verifyPin = require("./src/verifyPin");
 
 app.put("/createUser", async function (req, res) {
   const data = {
@@ -42,10 +44,29 @@ app.put("/createNewTx", async function (req, res) {
     sender: req.body.sender,
     receiver: req.body.receiver,
     displayDate: req.body.displayDate,
-    PaymentMode: req.body.PaymentMode,
+    paymentMode: req.body.paymentMode,
   };
 
   const result = await createNewTx.createNewTx(data);
+  res.send(result);
+});
+
+app.put("/createDeliverNowTx", async function (req, res) {
+  const data = {
+    id: req.body.id,
+    homeCurrency: req.body.homeCurrency,
+    receiverCurrency: req.body.receiverCurrency,
+    amount: req.body.amount,
+    expiry: req.body.expiry,
+    description: req.body.description,
+    amountInHomeCurrency: req.body.amountInHomeCurrency,
+    sender: req.body.sender,
+    receiver: req.body.receiver,
+    displayDate: req.body.displayDate,
+    paymentMode: req.body.paymentMode,
+  };
+
+  const result = await createDeliverNow.createDeliverNow(data);
   res.send(result);
 });
 
@@ -146,6 +167,11 @@ app.get("/getTxStatus", async function (req, res) {
   res.send(result);
 });
 
+app.get("/verifyPin", async function (req, res) {
+  const number = `${req.query.number}TPin`;
+  const result = await verifyPin.verifyPin(number, req.query.pin);
+  res.send(result);
+});
 app.listen(3000, function () {
   console.log("listening at port 3000");
 });

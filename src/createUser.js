@@ -15,8 +15,11 @@ const createUser = async (data) => {
     number: data.number,
     createdAt: new Date(),
   };
+
   const metaData = {
+    tpin: `${data.number}TPin`,
     pin: data.pin,
+
     // have to setup user-settings
   };
 

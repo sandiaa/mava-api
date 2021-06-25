@@ -148,7 +148,11 @@ app.get("/getTxList", async function (req, res) {
 
 app.get("/getUserId", async function (req, res) {
   const result = await getUserId.getUserId(req.query.number);
-  res.send(result);
+  if (result.status === "success") {
+    res.status(200).send(result);
+  } else {
+    res.status(404).send("User not found");
+  }
 });
 
 app.get("/getTxDetails", async function (req, res) {

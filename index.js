@@ -22,14 +22,18 @@ var getUserId = require("./src/getUserId");
 var getTxDetails = require("./src/getTxDetails");
 var verifyPin = require("./src/verifyPin");
 
-app.put("/createUser", async function (req, res) {
+app.post("/createUser", async function (req, res) {
   const data = {
     id: req.body.id,
     number: req.body.number,
     pin: req.body.pin,
   };
   const result = await createUser.createUser(data);
-  res.send(result);
+  if (result.status === "success") {
+    res.status(200).send(result);
+  } else {
+    res.status(404).send("User not created");
+  }
 });
 
 app.put("/createNewTx", async function (req, res) {

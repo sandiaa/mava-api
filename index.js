@@ -36,23 +36,24 @@ app.post("/createUser", async function (req, res) {
   }
 });
 
-app.put("/createNewTx", async function (req, res) {
+app.post("/createNewTx", async function (req, res) {
   const data = {
     id: req.body.id,
-    homeCurrency: req.body.homeCurrency,
     receiverCurrency: req.body.receiverCurrency,
     amount: req.body.amount,
     expiry: req.body.expiry,
     description: req.body.description,
-    amountInHomeCurrency: req.body.amountInHomeCurrency,
     sender: req.body.sender,
     receiver: req.body.receiver,
-    displayDate: req.body.displayDate,
     paymentMode: req.body.paymentMode,
   };
 
   const result = await createNewTx.createNewTx(data);
-  res.send(result);
+  if (result.status === "success") {
+    res.status(200).send(result);
+  } else {
+    res.status(404).send("Tx not created");
+  }
 });
 
 app.put("/createDeliverNowTx", async function (req, res) {

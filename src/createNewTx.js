@@ -13,20 +13,17 @@ const createNewTx = async (data) => {
     senderId: senderId.user.id,
     senderNumber: data.sender,
     receiverNumber: data.receiver,
-    homeCurrency: data.homeCurrency,
     receiverCurrency: data.receiverCurrency,
     createdAt: new Date(),
     amount: data.amount,
     expiry: data.expiry,
     description: data.description,
-    amountInHomeCurrency: data.amountInHomeCurrency,
-    displayDate: data.displayDate,
     paymentMode: data.paymentMode,
   };
   const transactionMetadata = {
-    transferLevel: "TX_ASSET_CREATION",
-    senderStatus: "REQUEST_SENT",
-    receiverStatus: "REQUEST_RECEIVED",
+    transferLevel: "TX_CREATION",
+    senderStatus: "NOT_SET",
+    receiverStatus: "NOT_SET",
     finalStatus: "NOT_SET",
     createdAt: new Date(),
   };

@@ -11,7 +11,7 @@ const requestSenderTransfer = async (txID, sender, receiver) => {
 
   const metadata = {
     assetId: txID,
-    transferLevel: "SEND",
+    transferLevel: "SENT",
     senderStatus: "REQUEST_SENT",
     receiverStatus: "REQUEST_RECEIVED",
     finalStatus: "NOT_SET",

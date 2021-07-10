@@ -14,6 +14,7 @@ const createUser = async (data) => {
     id: data.id,
     number: data.number,
     createdAt: new Date(),
+    name: data.name,
   };
 
   const metaData = {

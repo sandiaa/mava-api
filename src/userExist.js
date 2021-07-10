@@ -1,24 +1,21 @@
 const driver = require("bigchaindb-driver");
 
-const getUserId = async (userString) => {
+const userExist = async (userString) => {
   const conn = new driver.Connection("https://test.ipdb.io/api/v1/");
   var result = {};
-  var user = "";
   await conn.searchAssets(userString).then(
     (res) => {
       if (res.length == 0) {
         result = { status: "error", message: "User not found" };
       } else {
         res.forEach((element) => {
-          if (element.data.user != undefined) {
-            user = element.data.user;
-            result = { status: "success", user: user };
-          }
+          if (element.data.user != undefined)
+            result = { status: "success", userExist: true };
         });
       }
     },
     (err) => {
-      result = { status: "error", message: "User not found" };
+      result = { status: "error", userExist: false };
     }
   );
 
@@ -26,4 +23,4 @@ const getUserId = async (userString) => {
 };
 
 //get userId to get all transactions done by the user.
-module.exports = { getUserId };
+module.exports = { userExist };

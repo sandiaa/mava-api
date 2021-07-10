@@ -21,12 +21,14 @@ var getTxList = require("./src/getTxList");
 var getUserId = require("./src/getUserId");
 var getTxDetails = require("./src/getTxDetails");
 var verifyPin = require("./src/verifyPin");
+var userExist = require("./src/userExist");
 
 app.post("/createUser", async function (req, res) {
   const data = {
     id: req.body.id,
     number: req.body.number,
     pin: req.body.pin,
+    name: req.body.name,
   };
   const result = await createUser.createUser(data);
   if (result.status === "success") {
@@ -46,6 +48,7 @@ app.post("/createNewTx", async function (req, res) {
     sender: req.body.sender,
     receiver: req.body.receiver,
     paymentMode: req.body.paymentMode,
+    receiverName: req.body.receiverName,
   };
 
   const result = await createNewTx.createNewTx(data);
@@ -56,23 +59,24 @@ app.post("/createNewTx", async function (req, res) {
   }
 });
 
-app.put("/createDeliverNowTx", async function (req, res) {
+app.post("/createDeliverNowTx", async function (req, res) {
   const data = {
     id: req.body.id,
-    homeCurrency: req.body.homeCurrency,
     receiverCurrency: req.body.receiverCurrency,
     amount: req.body.amount,
-    expiry: req.body.expiry,
     description: req.body.description,
-    amountInHomeCurrency: req.body.amountInHomeCurrency,
     sender: req.body.sender,
     receiver: req.body.receiver,
-    displayDate: req.body.displayDate,
     paymentMode: req.body.paymentMode,
+    receiverName: req.body.receiverName,
   };
 
   const result = await createDeliverNow.createDeliverNow(data);
-  res.send(result);
+  if (result.status === "success") {
+    res.status(200).send(result);
+  } else {
+    res.status(404).send("Tx not created");
+  }
 });
 
 app.put("/acceptTx", async function (req, res) {
@@ -148,7 +152,11 @@ app.put("/reviewNotSuccess", async function (req, res) {
 
 app.get("/getTxList", async function (req, res) {
   const result = await getTxList.getTxList(req.query.number);
-  res.send(result);
+  if (result.status === "success") {
+    res.status(200).send(result);
+  } else {
+    res.status(404).send("No tx found");
+  }
 });
 
 app.get("/getUserId", async function (req, res) {
@@ -179,8 +187,24 @@ app.get("/getTxStatus", async function (req, res) {
 app.get("/verifyPin", async function (req, res) {
   const number = `${req.query.number}TPin`;
   const result = await verifyPin.verifyPin(number, req.query.pin);
-  res.send(result);
+
+  if (result.status === "success") {
+    res.status(200).send(result);
+  } else {
+    res.status(404).send("Pin doesn't match");
+  }
 });
+
+app.get("/userExist", async function (req, res) {
+  const result = await userExist.userExist(req.query.number);
+
+  if (result.status === "success") {
+    res.status(200).send(result);
+  } else {
+    res.status(404).send("User not found");
+  }
+});
+
 app.listen(3000, function () {
   console.log("listening at port 3000");
 });

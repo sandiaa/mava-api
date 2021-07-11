@@ -12,8 +12,8 @@ const txReviewSubmission = async (data) => {
   const metadata = {
     assetId: data.assetId,
     transferLevel: "REVIEW",
-    senderStatus: "UNDER_REVIEW",
-    receiverStatus: "UNDER_REVIEW",
+    senderStatus: "TO REVIEW",
+    receiverStatus: "REVIEWING",
     finalStatus: "NOT_SET",
     createdAt: new Date(),
   };

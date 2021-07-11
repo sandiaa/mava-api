@@ -12,8 +12,8 @@ const requestRejectTransfer = async (data) => {
   const metadata = {
     assetId: data.assetId,
     transferLevel: "REJECT",
-    senderStatus: "REQUEST_REJECTED",
-    receiverStatus: "REQUEST_REJECTED",
+    senderStatus: "REJECTED",
+    receiverStatus: "REJECTED",
     finalStatus: "NOT_SET",
     createdAt: new Date(),
   };

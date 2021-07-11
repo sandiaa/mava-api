@@ -12,8 +12,8 @@ const requestAcceptTransfer = async (data) => {
   const metadata = {
     assetId: data.assetId,
     transferLevel: "ACCEPT",
-    senderStatus: "WORK_IN_PROGRESS",
-    receiverStatus: "WORK_IN_PROGRESS",
+    senderStatus: "WORKING",
+    receiverStatus: "WORKING",
     finalStatus: "NOT_SET",
     createdAt: new Date(),
   };

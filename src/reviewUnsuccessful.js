@@ -12,8 +12,8 @@ const reviewUnsuccessful = async (data) => {
   const metadata = {
     assetId: data.assetId,
     transferLevel: "REVIEW_UNSUCESSFUL",
-    senderStatus: "REWORK_NEEDED",
-    receiverStatus: "REWORK_NEEDED",
+    senderStatus: "REWORK",
+    receiverStatus: "REWORK",
     finalStatus: "NOT_SET",
     createdAt: new Date(),
   };

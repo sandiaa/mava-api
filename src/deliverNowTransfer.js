@@ -12,8 +12,8 @@ const deliverNowTransfer = async (txID, sender, receiver) => {
   const metadata = {
     assetId: txID,
     transferLevel: "AMOUNT_DELIVERED",
-    senderStatus: "AMOUNT_SENT",
-    receiverStatus: "AMOUNT_RECEIVED",
+    senderStatus: "DELIVERED",
+    receiverStatus: "DELIVERED",
     finalStatus: "DELIVERED",
     createdAt: new Date(),
   };

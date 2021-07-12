@@ -170,7 +170,11 @@ app.get("/getUserId", async function (req, res) {
 
 app.get("/getTxDetails", async function (req, res) {
   var result = await getTxDetails.getTxDetails(req.query.id);
-  res.send(result);
+  if (result.status === "success") {
+    res.status(200).send(result);
+  } else {
+    res.status(404).send("No tx found");
+  }
 });
 
 app.get("/getTxStatus", async function (req, res) {

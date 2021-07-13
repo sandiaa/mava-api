@@ -20,6 +20,7 @@ const createNewTx = async (data) => {
     description: data.description,
     paymentMode: data.paymentMode,
     receiverName: data.receiverName,
+    senderName: data.senderName,
   };
   const transactionMetadata = {
     transferLevel: "TX_CREATION",

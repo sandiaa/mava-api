@@ -21,7 +21,7 @@ var getTxList = require("./src/getTxList");
 var getUserId = require("./src/getUserId");
 var getTxDetails = require("./src/getTxDetails");
 var verifyPin = require("./src/verifyPin");
-var userExist = require("./src/userExist");
+var userDetail = require("./src/userDetail");
 
 app.post("/createUser", async function (req, res) {
   const data = {
@@ -49,6 +49,7 @@ app.post("/createNewTx", async function (req, res) {
     receiver: req.body.receiver,
     paymentMode: req.body.paymentMode,
     receiverName: req.body.receiverName,
+    senderName: req.body.senderName,
   };
 
   const result = await createNewTx.createNewTx(data);
@@ -69,6 +70,7 @@ app.post("/createDeliverNowTx", async function (req, res) {
     receiver: req.body.receiver,
     paymentMode: req.body.paymentMode,
     receiverName: req.body.receiverName,
+    senderName: req.body.senderName,
   };
 
   const result = await createDeliverNow.createDeliverNow(data);
@@ -179,13 +181,16 @@ app.get("/getTxDetails", async function (req, res) {
 
 app.get("/getTxStatus", async function (req, res) {
   var result = await getTxDetails.getTxDetails(req.query.id);
+
   if (result.status === "success") {
     result = {
       status: "success",
       message: result.data[result.data.length - 1],
     };
+    res.status(200).send(result);
+  } else {
+    res.status(404).send("No tx found");
   }
-  res.send(result);
 });
 
 app.get("/verifyPin", async function (req, res) {
@@ -199,8 +204,8 @@ app.get("/verifyPin", async function (req, res) {
   }
 });
 
-app.get("/userExist", async function (req, res) {
-  const result = await userExist.userExist(req.query.number);
+app.get("/userDetail", async function (req, res) {
+  const result = await userDetail.userDetail(req.query.number);
 
   if (result.status === "success") {
     res.status(200).send(result);

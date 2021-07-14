@@ -81,7 +81,7 @@ app.post("/createDeliverNowTx", async function (req, res) {
   }
 });
 
-app.put("/acceptTx", async function (req, res) {
+app.post("/acceptTx", async function (req, res) {
   const data = {
     id: req.body.id,
     assetId: req.body.assetId,
@@ -89,10 +89,14 @@ app.put("/acceptTx", async function (req, res) {
     receiver: req.body.receiver,
   };
   const result = await requestAcceptTransfer.requestAcceptTransfer(data);
-  res.send(result);
+  if (result.status === "success") {
+    res.status(200).send(result);
+  } else {
+    res.status(404);
+  }
 });
 
-app.put("/reviewTx", async function (req, res) {
+app.post("/reviewTx", async function (req, res) {
   const data = {
     id: req.body.id,
     assetId: req.body.assetId,
@@ -100,17 +104,25 @@ app.put("/reviewTx", async function (req, res) {
     receiver: req.body.receiver,
   };
   const result = await txReviewSubmission.txReviewSubmission(data);
-  res.send(result);
+  if (result.status === "success") {
+    res.status(200).send(result);
+  } else {
+    res.status(404);
+  }
 });
 
-app.put("/deliverTx", async function (req, res) {
+app.post("/deliverTx", async function (req, res) {
   const data = {
     id: req.body.id,
     assetId: req.body.assetId,
     sender: req.body.sender,
   };
   const result = await txDelivered.txDelivered(data);
-  res.send(result);
+  if (result.status === "success") {
+    res.status(200).send(result);
+  } else {
+    res.status(404);
+  }
 });
 
 app.put("/txAmountDeliver", async function (req, res) {
@@ -122,14 +134,18 @@ app.put("/txAmountDeliver", async function (req, res) {
   res.send(result);
 });
 
-app.put("/rejectTx", async function (req, res) {
+app.post("/rejectTx", async function (req, res) {
   const data = {
     id: req.body.id,
     assetId: req.body.assetId,
     sender: req.body.sender,
   };
   const result = await requestRejectTransfer.requestRejectTransfer(data);
-  res.send(result);
+  if (result.status === "success") {
+    res.status(200).send(result);
+  } else {
+    res.status(404);
+  }
 });
 
 app.put("/refundAmtTx", async function (req, res) {

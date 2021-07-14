@@ -2,6 +2,7 @@ const driver = require("bigchaindb-driver");
 const getTransaction = require("./getTransaction");
 const createKeys = require("./createKeys");
 const userId = require("./getUserId");
+const deliverTxAmt = require("./deliverTxAmt");
 
 const txDelivered = async (data) => {
   const conn = new driver.Connection("https://test.ipdb.io/api/v1/");
@@ -36,14 +37,28 @@ const txDelivered = async (data) => {
     createTranfer,
     senderKeys.privateKey
   );
+  var result = {};
   await conn.postTransactionCommit(signedTX).then(
     (res) => {
       result = { status: "success", data: res };
     },
     (err) => {
-      result = { status: "error", message: "Transaction not delivered" };
+      result = { status: "error", message: "Transaction not created" };
     }
   );
+
+  if (result.status == "success") {
+    await deliverTxAmt
+      .deliverTxAmt({ id: result.data.id, assetId: data.assetId })
+      .then(
+        (res) => {
+          result = { status: "success", data: "Transaction successful" };
+        },
+        (err) => {
+          result = { status: "error", message: "Transaction failed" };
+        }
+      );
+  }
   return result;
 };
 

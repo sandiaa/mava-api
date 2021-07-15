@@ -125,14 +125,14 @@ app.post("/deliverTx", async function (req, res) {
   }
 });
 
-app.put("/txAmountDeliver", async function (req, res) {
-  const data = {
-    id: req.body.id,
-    assetId: req.body.assetId,
-  };
-  const result = await deliverTxAmt.deliverTxAmt(data);
-  res.send(result);
-});
+// app.put("/txAmountDeliver", async function (req, res) {
+//   const data = {
+//     id: req.body.id,
+//     assetId: req.body.assetId,
+//   };
+//   const result = await deliverTxAmt.deliverTxAmt(data);
+//   res.send(result);
+// });
 
 app.post("/rejectTx", async function (req, res) {
   const data = {
@@ -157,7 +157,7 @@ app.put("/refundAmtTx", async function (req, res) {
   res.send(result);
 });
 
-app.put("/reviewNotSuccess", async function (req, res) {
+app.post("/reviewNotSuccess", async function (req, res) {
   const data = {
     id: req.body.id,
     assetId: req.body.assetId,
@@ -165,7 +165,11 @@ app.put("/reviewNotSuccess", async function (req, res) {
     receiver: req.body.receiver,
   };
   const result = await reviewUnsuccessful.reviewUnsuccessful(data);
-  res.send(result);
+  if (result.status === "success") {
+    res.status(200).send(result);
+  } else {
+    res.status(404);
+  }
 });
 
 app.get("/getTxList", async function (req, res) {
